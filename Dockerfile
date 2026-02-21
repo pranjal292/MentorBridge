@@ -29,4 +29,4 @@ RUN mkdir -p /app/backend/data
 EXPOSE 7860
 
 WORKDIR /app/backend
-CMD ["node", "server.js"]
+CMD ["sh", "-c", "node seed.js && node server.js"]
