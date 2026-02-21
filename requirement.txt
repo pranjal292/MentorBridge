@@ -1,0 +1,32 @@
+MentorBridge - Requirements
+===========================
+
+Backend Dependencies:
+---------------------
+@google/generative-ai: ^0.21.0
+bcryptjs: ^2.4.3
+cors: ^2.8.5
+dotenv: ^16.4.7
+express: ^4.21.2
+jsonwebtoken: ^9.0.2
+socket.io: ^4.8.3
+sql.js: ^1.12.0
+
+Frontend Dependencies:
+----------------------
+react: ^19.0.0
+react-dom: ^19.0.0
+react-router-dom: ^7.1.0
+socket.io-client: ^4.8.3
+
+Development Tools & Plugins:
+----------------------------
+vite: ^6.1.0
+@vitejs/plugin-react: ^4.3.0
+@vitejs/plugin-basic-ssl: ^2.1.4
+@types/react: ^19.0.0
+@types/react-dom: ^19.0.0
+
+Runtime:
+--------
+Node.js (v18+ recommended)
