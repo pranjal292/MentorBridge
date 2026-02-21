@@ -147,6 +147,12 @@ export default function MyProfilePage() {
                                     <label htmlFor="profile-goals">Career Goals</label>
                                     <input id="profile-goals" className="form-input" placeholder="e.g., Become a Pen Tester" value={goals} onChange={e => setGoals(e.target.value)} />
                                 </div>
+                                <div className="quiz-entry-point">
+                                    <p>Not sure what to put? ✨</p>
+                                    <button type="button" className="btn btn-secondary btn-sm" onClick={() => navigate('/quiz')}>
+                                        🎯 Take Skill Discovery Quiz
+                                    </button>
+                                </div>
                             </>
                         ) : (
                             <>

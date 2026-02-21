@@ -915,4 +915,52 @@ Generate 5 articles, 4 courses, 4 job insights. Make everything highly relevant,
     }
 });
 
+// POST /api/ai/quiz-analyze - Analyze quiz answers for skills/interests
+router.post('/quiz-analyze', auth, async (req, res) => {
+    try {
+        const { answers } = req.body;
+        if (!answers || !Array.isArray(answers)) {
+            return res.status(400).json({ error: 'Please provide an array of quiz answers' });
+        }
+
+        if (genAI) {
+            try {
+                const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+                const prompt = `You are a career consultant AI. Based on the following student quiz answers, suggest 3-5 technical skills, 3-5 interests, and 1 clear career goal.
+
+QUIZ ANSWERS:
+${answers.map((a, i) => `Q${i + 1}: ${a.question}\nA: ${a.answer}`).join('\n\n')}
+
+Return a JSON object (no markdown, no code blocks):
+{
+  "skills": "comma, separated, skills",
+  "interests": "comma, separated, interests",
+  "goals": "a concise career goal sentence",
+  "explanation": "a short 2-sentence explanation of why these were chosen"
+}
+
+Be specific and professional. Recommendations should be actionable and relevant to the 2025 tech market.`;
+
+                const result = await model.generateContent(prompt);
+                const text = result.response.text().replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+                const analysis = JSON.parse(text);
+                return res.json(analysis);
+            } catch (aiErr) {
+                console.error('Gemini quiz error, using mock:', aiErr.message);
+            }
+        }
+
+        // Mock analysis fallback
+        res.json({
+            skills: "React, JavaScript, Node.js, Web Development",
+            interests: "Frontend Engineering, UI/UX Design, Open Source",
+            goals: "Become a Full-Stack Developer specializing in modern web ecosystems.",
+            explanation: "Based on your preference for building visual tools and interactive experiences, a path in Modern Web Development is highly recommended."
+        });
+    } catch (err) {
+        console.error('Quiz analysis error:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 module.exports = router;

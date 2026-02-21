@@ -14,6 +14,7 @@ import MyProfilePage from './pages/MyProfilePage';
 import ContentDashboard from './pages/ContentDashboard';
 import SkillsInsightsPage from './pages/SkillsInsightsPage';
 import ResumeAnalysisPage from './pages/ResumeAnalysisPage';
+import QuizPage from './pages/QuizPage';
 
 function ProtectedRoute({ children }) {
     const { user, loading } = useAuth();
@@ -75,6 +76,9 @@ function App() {
                 } />
                 <Route path="/resume" element={
                     <ProtectedRoute><ResumeAnalysisPage /></ProtectedRoute>
+                } />
+                <Route path="/quiz" element={
+                    <ProtectedRoute><QuizPage /></ProtectedRoute>
                 } />
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
